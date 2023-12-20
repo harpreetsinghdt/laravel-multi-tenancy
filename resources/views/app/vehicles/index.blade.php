@@ -1,8 +1,8 @@
-<x-tenantfrontapp-layout>
+<x-tenant-app-layout>
 	<x-slot name="header">
 		<h2 class="font-semibold text-xl text-gray-800 leading-tight">
-			{{ __('Tenants') }}
-			<x-btn-link class="ml-4 float-right" href="{{ route('tenants.create') }}">Add Tenant</x-btn-link>
+			{{ __('Vehciles') }}
+			<x-btn-link class="ml-4 float-right" href="{{ route('vehicles.create') }}">Add Vehicle</x-btn-link>
 		</h2>
 	</x-slot>
 
@@ -14,34 +14,29 @@
 						<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 							<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:bg-gray-400">
 								<tr>
-									<th scope="col" class="px-6 py-3">Name</th>
-									<th scope="col" class="px-6 py-3">Email</th>
-									<th scope="col" class="px-6 py-3">Domain</th>
+									<th scope="col" class="px-6 py-3">Miles</th>
+									<th scope="col" class="px-6 py-3">Make</th>
+									<th scope="col" class="px-6 py-3">Model</th>
+									<th scope="col" class="px-6 py-3">Color</th>
 									<th scope="col" class="px-6 py-3">Created At</th>
 									<th scope="col" class="px-6 py-3">Action</th>
 								</tr>
 							</thead>
 							<tbody>
 
-								@foreach ($tenants as $tenant)
+								@foreach ($vehicles as $row)
 								<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 									<td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-										{{$tenant->name}}
+										{{$row->miles}}
 									</td>
-									<td>{{$tenant->email}}</td>
+									<td>{{$row->make}}</td>
+									<td>{{$row->model}}</td>
+									<td>{{$row->color}}</td>
+
+									<td>{{$row->created_at}}</td>
 									<td>
-
-										@foreach ($tenant->domains as $domain)
-										<a href="{{ 'http://'.$domain->domain.':8000' }}" target="_blank">
-											{{$domain->domain.':8000'}}
-										</a>
-										{{$loop->last?'':','}}
-										@endforeach
-
-
+										<x-btn-link href="{{ route('vehicles.edit',$row->id)}}">Edit</x-btn-link>
 									</td>
-									<td>{{$tenant->created_at}}</td>
-									<td>Edit</td>
 								</tr>
 								@endforeach
 							</tbody>
@@ -50,5 +45,4 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</x-tenantfrontapp-layout>
+		</x-app-layout>
